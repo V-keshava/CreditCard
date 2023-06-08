@@ -1,95 +1,4 @@
-// import React from "react";
-// import {Image, View} from 'react-native'
-// import { CreditCardInput,LiteCreditCardInput } from "react-native-credit-card-input";
-
-// export default App=()=>{
-
-//  const _onChange = (form) =>
-
-// // will print:
-// {
-//   valid: true; // will be true once all fields are "valid" (time to enable the submit button)
-//   values: { // will be in the sanitized and formatted form
-//   	number: "4242 4242";
-//   	expiry: "06/19";
-//   	cvc: "300";
-//   	type: "visa"; // will be one of [null, "visa", "master-card", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro"]
-//   	name: "Sam";
-
-//   	// postalCode: "34567"
-//   }
-//   status: {  // will be one of ["incomplete", "invalid", and "valid"]
-//     number: "incomplete";
-//     expiry: "incomplete";
-//     cvc: "incomplete";
-//     name: "incomplete";
-//     // postalCode: "incomplete"
-//   }
-// }
-//   return(
-//     <View>
-//       <LiteCreditCardInput
-//   imageFront={require('../CreditCard/Assests/images/visa.png')}
-//   imageBack={require('../CreditCard/Assests/images/visa.png')}
-//   onChange={_onChange}
-// />
-//     </View>
-//   )
-// }
-
-// import React from 'react';
-// import { View, TextInput, StyleSheet } from 'react-native';
-
-// const App = () => {
-//   return (
-//     <View style={styles.container}>
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Card Number"
-//         keyboardType="numeric"
-//         maxLength={16}
-//       />
-//       <TextInput style={styles.input} placeholder="Card Holder Name" />
-//       <View style={styles.inlineContainer}>
-//         <TextInput
-//           style={[styles.input, { flex: 1 }]}
-//           placeholder="Expiry Date"
-//           keyboardType="numeric"
-//           maxLength={4}
-//         />
-//         <TextInput
-//           style={[styles.input, { flex: 1 }]}
-//           placeholder="CVV"
-//           keyboardType="numeric"
-//           maxLength={3}
-//         />
-//       </View>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     paddingHorizontal: 16,
-//   },
-//   input: {
-//     height: 40,
-//     borderWidth: 1,
-//     borderColor: '#ccc',
-//     borderRadius: 4,
-//     marginBottom: 12,
-//     paddingHorizontal: 8,
-//   },
-//   inlineContainer: {
-//     flexDirection: 'row',
-//   },
-// });
-
-// export default App;
-
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   TextInput,
@@ -100,9 +9,6 @@ import {
   Button,
 } from 'react-native';
 import FlipCard from 'react-native-flip-card';
-// import Animated, { useSharedValue, withTiming, useAnimatedStyle } from 'react-native-reanimated';
-
-
 
 const App = () => {
   const [flipped, setFlipped] = useState(false);
@@ -111,48 +17,22 @@ const App = () => {
   const [expiryMonth, setExpiryMonth] = useState('');
   const [expiryYear, setExpiryYear] = useState('');
   const [cvv, setCVV] = useState('');
-  const [text, setText] = useState('')
+  const [text, setText] = useState('');
 
   const flipCard = () => {
     setFlipped(!flipped);
   };
 
-
-  const SplicedText = ({cardNumber})=>{
-    const spliced = setCardNumber(cardNumber.slice(0,3)+" "+cardNumber.slice(3,7)+" "+cardNumber.slice(7,11)+"  "+cardNumber.slice(11,15))
-    return(
-      <Text>{spliced}</Text>
-    )
-  }
-
-  // const RollingNumber=({cardNumber})=>{
-  //   const animatedValue= useRef(useSharedValue(0)).current;
-  // useEffect(()=>{
-  //   animatedValue.value = withTiming(cardNumber,{duration:1000});
-  // },[cardNumber,animatedValue])
-  
-  // const animatedStyle = useAnimatedStyle(()=>{
-  //   return{
-  //     transform:[{translateY:animatedValue * -30}]
-  //   }
-  // })
-  // return(
-  //   <Animated.View style={animatedStyle}>
-  //     <Text>{cardNumber}</Text>
-  //   </Animated.View>
-  // )
-  // }
   const resetValues = () => {
     setCardNumber('');
     setCardName('');
     setExpiryMonth('');
     setExpiryYear('');
     setCVV('');
-    setText('')
+    setText('');
     flipCard(flipped);
-    
   };
-  
+
   return (
     <View style={styles.container}>
       <FlipCard
@@ -162,14 +42,7 @@ const App = () => {
         perspective={1000}
         flipHorizontal={true}
         flipVertical={false}
-        clickable={false}
-        // onFlipEnd={isFlipped => {
-        //   if (!isFlipped) {
-        //     setFlipped(false);
-        //   }
-        // }
-        // }
-        >
+        clickable={false}>
         {/* Front Side */}
         <ImageBackground
           source={require('../CreditCard/Assests/images/7.jpeg')}
@@ -188,14 +61,19 @@ const App = () => {
 
           <Text style={[styles.input, {fontSize: 20, marginTop: 20}]}>
             {cardNumber ? (
-              <Text>{cardNumber.slice(0,4)+"  "+cardNumber.slice(4,8)+"  "+cardNumber.slice(8,12)+"  "+cardNumber.slice(12,16)}</Text>
+              <Text>
+                {cardNumber.slice(0, 4) +
+                  '  ' +
+                  cardNumber.slice(4, 8) +
+                  '  ' +
+                  cardNumber.slice(8, 12) +
+                  '  ' +
+                  cardNumber.slice(12, 16)}
+              </Text>
             ) : (
               <Text>{'####  ####  ####  ####'}</Text>
             )}
           </Text>
-          {/* <RollingNumber cardNumber={cardNumber} /> */}
-
-          
           <View
             style={[
               styles.inlineContainer,
@@ -221,7 +99,7 @@ const App = () => {
             </View>
             <View>
               <Text style={{color: 'white', marginTop: 0}}>Expiry Date</Text>
-              
+
               <Text style={[styles.input, {marginTop: 0}]}>
                 {expiryMonth ? <Text>{expiryMonth}</Text> : <Text>{'MM'}</Text>}
                 {'/'}
@@ -247,16 +125,15 @@ const App = () => {
           />
         </ImageBackground>
       </FlipCard>
-
+      {/* Input Fields */}
       <View style={styles.container1}>
         <TextInput
-          style={[styles.input1,{}]}
+          style={[styles.input1, {}]}
           placeholder="Card Number"
           keyboardType="numeric"
           maxLength={16}
           value={cardNumber}
           onChangeText={setCardNumber}
-          
         />
         <TextInput
           style={styles.input1}
@@ -271,7 +148,6 @@ const App = () => {
             placeholder="Expiry month"
             keyboardType="numeric"
             maxLength={2}
-            
             onChangeText={setExpiryMonth}
             value={expiryMonth}
           />
@@ -283,7 +159,6 @@ const App = () => {
             onChangeText={setExpiryYear}
             value={expiryYear}
           />
-          {/* <SelectDropdown data={month} rowStyle={{width:50, height:40,}} /> */}
           <TextInput
             style={[styles.input1, {width: '50%'}]}
             placeholder="CVV"
@@ -293,7 +168,6 @@ const App = () => {
             onChangeText={setCVV}
             value={cvv}
             // secureTextEntry
-            
           />
         </View>
         <Button title="submit" onPress={resetValues} />
@@ -339,7 +213,7 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     borderWidth: 1,
-    padding:10,
+    padding: 10,
     borderColor: 'rgba(255, 255, 255, 0)',
     color: 'white',
     borderRadius: 4,
@@ -348,8 +222,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textDecorationLine: 'none',
     // fontSize:10
-    
-    
   },
   inlineContainer: {
     flexDirection: 'row',
@@ -413,7 +285,6 @@ const styles = StyleSheet.create({
     marginLeft: '85%',
     fontWeight: 'bold',
     fontSize: 20,
-    
   },
 });
 
