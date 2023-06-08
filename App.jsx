@@ -167,7 +167,7 @@ const App = () => {
             onFocus={flipCard}
             onChangeText={setCVV}
             value={cvv}
-            // secureTextEntry
+            
           />
         </View>
         <Button title="submit" onPress={resetValues} />
